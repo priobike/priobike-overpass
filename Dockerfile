@@ -8,7 +8,7 @@ ARG OVERPASS_PLANET_PREPROCESS='mv /db/planet.osm.bz2 /db/planet.osm && osmium c
 # Use this argument to invalidate the cache of subsequent steps.
 ARG CACHE_DATE=1970-01-01
 
-FROM bikenow.vkw.tu-dresden.de/priobike/priobike-graphhopper-drn:stable as graphhopper
+FROM $BASE_IMAGE as graphhopper
 
 FROM wiktorn/overpass-api as runner
 
