@@ -11,6 +11,9 @@ ARG CACHE_DATE=1970-01-01
 FROM $BASE_IMAGE as graphhopper
 
 FROM wiktorn/overpass-api as runner
+ARG OSM_FILE_PATH
+ARG OVERPASS_PLANET_PREPROCESS
+ARG CACHE_DATE
 
 COPY --from=graphhopper $OSM_FILE_PATH /map.osm
 
