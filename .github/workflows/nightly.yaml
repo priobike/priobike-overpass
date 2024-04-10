@@ -1,0 +1,90 @@
+name: Nightly
+
+on:
+  schedule:
+    - cron: '0 5 * * *'
+
+jobs:
+  publish-drn-main:
+    uses: ./.github/workflows/publish.yaml
+    with:
+      context: .
+      registry: bikenow.vkw.tu-dresden.de
+      image: ${{ github.repository }}-drn
+      branch: main
+      base_image: bikenow.vkw.tu-dresden.de/priobike/priobike-graphhopper-drn:main
+      osm_file_path: /graphhopper/map.osm
+      overpass_planet_preprocess: 'mv /db/planet.osm.bz2 /db/planet.osm && osmium cat -o /db/planet.osm.bz2 /db/planet.osm && rm /db/planet.osm'
+    secrets:
+      NEXUS_DOCKER_PUB_USERNAME: ${{ secrets.NEXUS_DOCKER_PUB_USERNAME }}
+      NEXUS_DOCKER_PUB_PASSWORD: ${{ secrets.NEXUS_DOCKER_PUB_PASSWORD }}
+
+  publish-drn-stable:
+    uses: ./.github/workflows/publish.yaml
+    with:
+      context: .
+      registry: bikenow.vkw.tu-dresden.de
+      image: ${{ github.repository }}-drn
+      branch: stable
+      base_image: bikenow.vkw.tu-dresden.de/priobike/priobike-graphhopper-drn:stable
+      osm_file_path: /graphhopper/map.osm
+      overpass_planet_preprocess: 'mv /db/planet.osm.bz2 /db/planet.osm && osmium cat -o /db/planet.osm.bz2 /db/planet.osm && rm /db/planet.osm'
+    secrets:
+      NEXUS_DOCKER_PUB_USERNAME: ${{ secrets.NEXUS_DOCKER_PUB_USERNAME }}
+      NEXUS_DOCKER_PUB_PASSWORD: ${{ secrets.NEXUS_DOCKER_PUB_PASSWORD }}
+
+  publish-drn-release:
+    uses: ./.github/workflows/publish.yaml
+    with:
+      context: .
+      registry: bikenow.vkw.tu-dresden.de
+      image: ${{ github.repository }}-drn
+      branch: stable
+      base_image: bikenow.vkw.tu-dresden.de/priobike/priobike-graphhopper-drn:release
+      osm_file_path: /graphhopper/map.osm
+      overpass_planet_preprocess: 'mv /db/planet.osm.bz2 /db/planet.osm && osmium cat -o /db/planet.osm.bz2 /db/planet.osm && rm /db/planet.osm'
+    secrets:
+      NEXUS_DOCKER_PUB_USERNAME: ${{ secrets.NEXUS_DOCKER_PUB_USERNAME }}
+      NEXUS_DOCKER_PUB_PASSWORD: ${{ secrets.NEXUS_DOCKER_PUB_PASSWORD }}
+
+  publish-osm-main:
+    uses: ./.github/workflows/publish.yaml
+    with:
+      context: .
+      registry: bikenow.vkw.tu-dresden.de
+      image: ${{ github.repository }}-osm
+      branch: main
+      base_image: bikenow.vkw.tu-dresden.de/priobike/priobike-graphhopper:main
+      osm_file_path: /graphhopper/sachsen-latest.osm.pbf
+      overpass_planet_preprocess: 'mv /db/planet.osm.bz2 /db/planet.osm.pbf && osmium cat -o /db/planet.osm.bz2 /db/planet.osm.pbf && rm /db/planet.osm'
+    secrets:
+      NEXUS_DOCKER_PUB_USERNAME: ${{ secrets.NEXUS_DOCKER_PUB_USERNAME }}
+      NEXUS_DOCKER_PUB_PASSWORD: ${{ secrets.NEXUS_DOCKER_PUB_PASSWORD }}
+
+  publish-osm-stable:
+    uses: ./.github/workflows/publish.yaml
+    with:
+      context: .
+      registry: bikenow.vkw.tu-dresden.de
+      image: ${{ github.repository }}-osm
+      branch: main
+      base_image: bikenow.vkw.tu-dresden.de/priobike/priobike-graphhopper:stable
+      osm_file_path: /graphhopper/sachsen-latest.osm.pbf
+      overpass_planet_preprocess: 'mv /db/planet.osm.bz2 /db/planet.osm.pbf && osmium cat -o /db/planet.osm.bz2 /db/planet.osm.pbf && rm /db/planet.osm'
+    secrets:
+      NEXUS_DOCKER_PUB_USERNAME: ${{ secrets.NEXUS_DOCKER_PUB_USERNAME }}
+      NEXUS_DOCKER_PUB_PASSWORD: ${{ secrets.NEXUS_DOCKER_PUB_PASSWORD }}
+
+  publish-osm-release:
+    uses: ./.github/workflows/publish.yaml
+    with:
+      context: .
+      registry: bikenow.vkw.tu-dresden.de
+      image: ${{ github.repository }}-osm
+      branch: main
+      base_image: bikenow.vkw.tu-dresden.de/priobike/priobike-graphhopper:release
+      osm_file_path: /graphhopper/sachsen-latest.osm.pbf
+      overpass_planet_preprocess: 'mv /db/planet.osm.bz2 /db/planet.osm.pbf && osmium cat -o /db/planet.osm.bz2 /db/planet.osm.pbf && rm /db/planet.osm'
+    secrets:
+      NEXUS_DOCKER_PUB_USERNAME: ${{ secrets.NEXUS_DOCKER_PUB_USERNAME }}
+      NEXUS_DOCKER_PUB_PASSWORD: ${{ secrets.NEXUS_DOCKER_PUB_PASSWORD }}
