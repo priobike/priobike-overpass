@@ -25,6 +25,7 @@ ENV OVERPASS_PLANET_URL=$OSM_FILE_URL
 ENV OVERPASS_PLANET_PREPROCESS=$OVERPASS_PLANET_PREPROCESS
 ENV OVERPASS_USE_AREAS=false
 ENV OVERPASS_STOP_AFTER_INIT=true
+ENV OVERPASS_MAX_TIMEOUT=5
 
 # Imports the OSM file to the database and performs the preprocessing incl. indexing
 RUN /app/docker-entrypoint.sh
