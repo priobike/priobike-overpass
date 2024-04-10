@@ -24,14 +24,28 @@ jobs:
       NEXUS_DOCKER_PUB_USERNAME: ${{ secrets.NEXUS_DOCKER_PUB_USERNAME }}
       NEXUS_DOCKER_PUB_PASSWORD: ${{ secrets.NEXUS_DOCKER_PUB_PASSWORD }}
 
-  publish-osm:
+  publish-osm-hamburg:
     uses: ./.github/workflows/publish.yaml
     with:
       context: .
       registry: bikenow.vkw.tu-dresden.de
-      image: ${{ github.repository }}-osm
+      image: ${{ github.repository }}-osm-hamburg
       branch: ${{ github.ref_name }}
-      base_image: bikenow.vkw.tu-dresden.de/priobike/priobike-graphhopper:${{ github.ref_name }}
+      base_image: bikenow.vkw.tu-dresden.de/priobike/priobike-graphhopper-hamburg:${{ github.ref_name }}
+      osm_file_path: /graphhopper/hamburg-latest.osm.pbf
+      overpass_planet_preprocess: 'mv /db/planet.osm.bz2 /db/planet.osm.pbf && osmium cat -o /db/planet.osm.bz2 /db/planet.osm.pbf && rm /db/planet.osm'
+    secrets:
+      NEXUS_DOCKER_PUB_USERNAME: ${{ secrets.NEXUS_DOCKER_PUB_USERNAME }}
+      NEXUS_DOCKER_PUB_PASSWORD: ${{ secrets.NEXUS_DOCKER_PUB_PASSWORD }}
+
+  publish-osm-sachsen:
+    uses: ./.github/workflows/publish.yaml
+    with:
+      context: .
+      registry: bikenow.vkw.tu-dresden.de
+      image: ${{ github.repository }}-osm-sachsen
+      branch: ${{ github.ref_name }}
+      base_image: bikenow.vkw.tu-dresden.de/priobike/priobike-graphhopper-sachsen:${{ github.ref_name }}
       osm_file_path: /graphhopper/sachsen-latest.osm.pbf
       overpass_planet_preprocess: 'mv /db/planet.osm.bz2 /db/planet.osm.pbf && osmium cat -o /db/planet.osm.bz2 /db/planet.osm.pbf && rm /db/planet.osm'
     secrets:
