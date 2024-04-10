@@ -15,8 +15,8 @@ jobs:
     with:
       context: .
       registry: bikenow.vkw.tu-dresden.de
-      image: ${{ github.repository }}
-      branch: ${{ github.ref_name }}-drn
+      image: ${{ github.repository }}-drn
+      branch: ${{ github.ref_name }}
       base_image: bikenow.vkw.tu-dresden.de/priobike/priobike-graphhopper-drn:${{ github.ref_name }}
       osm_file_path: /graphhopper/map.osm
       overpass_planet_preprocess: 'mv /db/planet.osm.bz2 /db/planet.osm && osmium cat -o /db/planet.osm.bz2 /db/planet.osm && rm /db/planet.osm'
