@@ -2,6 +2,9 @@ name: Nightly
 
 on:
   schedule:
+  # Needs to be after the new graphhopper and graphhooper-drn images are built (to use latest OSM data)
+  # https://github.com/priobike/priobike-graphhopper/blob/main/.github/workflows/nightly.yaml
+  # https://github.com/priobike/priobike-graphhopper-drn/blob/main/.github/workflows/nightly.yaml
     - cron: '0 5 * * *'
 
 jobs:
