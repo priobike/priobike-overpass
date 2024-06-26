@@ -1,0 +1,21 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-osm-sachsen:
+    uses: ./.github/workflows/publish.yaml
+    with:
+      context: .
+      registry: bikenow.vkw.tu-dresden.de
+      image: ${{ github.repository }}-osm-sachsen
+      branch: ${{ github.ref_name }}
+      base_image: bikenow.vkw.tu-dresden.de/priobike/priobike-graphhopper-sachsen:${{ github.ref_name }}
+      osm_file_path: /graphhopper/sachsen-latest.osm.pbf
+      overpass_planet_preprocess: 'mv /db/planet.osm.bz2 /db/planet.osm.pbf && osmium cat -o /db/planet.osm.bz2 /db/planet.osm.pbf && rm /db/planet.osm.pbf'
+    secrets:
+      NEXUS_DOCKER_PUB_USERNAME: ${{ secrets.NEXUS_DOCKER_PUB_USERNAME }}
+      NEXUS_DOCKER_PUB_PASSWORD: ${{ secrets.NEXUS_DOCKER_PUB_PASSWORD }}
